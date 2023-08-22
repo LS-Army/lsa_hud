@@ -1,0 +1,57 @@
+body {
+  display: block;
+  overflow: hidden;
+}
+
+.hud-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100vh;
+}
+
+.health-container,
+.armor-container {
+  position: absolute;
+  bottom: 40px;
+  width: 350px;
+  transform-origin: bottom right;
+  transform: rotate(5deg);
+}
+
+.health-container {
+  height: 10px;
+  box-shadow: 0px 0px 8px rgba(16, 17, 19, 1);
+  background-color: rgba(16, 17, 19, 0.55);
+  border-radius: 2px;
+}
+
+.health {
+  width: 100%;
+  float: right;
+  height: 10px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 8px #c92a2a;
+  background: linear-gradient(to right, #f03e3e, #c92a2a);
+  transition: width 0.5s ease;
+}
+
+.armor-container {
+  bottom: 60px;
+  gap: 8px;
+  flex-direction: row;
+  display: flex;
+}
+
+.armor-segment {
+  width: 58.3px;
+  height: 12px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px rgba(16, 17, 19, 1);
+  background-color: rgba(16, 17, 19, 0.55);
+  flex: 1;
+  display: block;
+  transition: background-color 0.5s ease;
+}
