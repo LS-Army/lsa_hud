@@ -4,7 +4,7 @@ window.addEventListener("message", (event) => {
     const healthBar = document.querySelector(".health");
     healthBar.style.width = event.data.health + "%";
 
-    const armorThresholds = [16, 35, 50, 65, 80, 100];
+    const armorThresholds = [100, 80, 65, 50, 35, 16];
     const armorSegments = document.querySelectorAll(".armor-segment");
     const armorValue = Math.round(event.data.armor);
 
@@ -20,9 +20,6 @@ window.addEventListener("message", (event) => {
           ? "0px 0px 8px rgba(34, 139, 230, 1)"
           : "0px 0px 8px rgba(16, 17, 19, 1)";
       armorSegments[i].style.boxShadow = boxShadow;
-      if (i === 0 && armorValue === armorThresholds[i]) {
-        break;
-      }
     }
   }
 });
