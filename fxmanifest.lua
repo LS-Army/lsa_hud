@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 lua54 'yes'
 game 'gta5'
-name 'lsa-hud'
+name 'lsa_hud'
 version "1.0.1"
 author 'Rota LS-ARMY'
 
@@ -25,6 +25,5 @@ ui_page('web/index.html')
 files {
   'web/index.html',
   'web/style.css',
-  'web/index.js',
-  'locales/*.json'
+  'web/index.js'
 }
