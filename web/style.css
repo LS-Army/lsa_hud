@@ -17,6 +17,7 @@ body {
   position: absolute;
   bottom: 40px;
   width: 350px;
+
   transform-origin: bottom right;
   transform: rotate(5deg);
 }
@@ -39,7 +40,7 @@ body {
 }
 
 .armor-container {
-  bottom: 60px;
+  margin-bottom: 20px;
   gap: 8px;
   flex-direction: row;
   display: flex;
@@ -54,4 +55,9 @@ body {
   flex: 1;
   display: block;
   transition: background-color 0.5s ease;
+}
+
+.fa-shield {
+  color: red;
+  background-color: red;
 }

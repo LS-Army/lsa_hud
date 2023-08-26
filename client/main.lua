@@ -1,3 +1,4 @@
+
 Citizen.CreateThread(function()
     Wait(500)
     SetHudComponentPosition(6, 999999.0, 999999.0)
@@ -13,12 +14,12 @@ Citizen.CreateThread(function()
         EndScaleformMovieMethod()
 
         local health = GetEntityHealth(cache.ped) / 2
-        local armor = GetPedArmour(cache.ped)
+        local armour = GetPedArmour(cache.ped)
 
         SendNUIMessage({
             type = "show",
             health = health,
-            armor = armor
+            armor = armour
         })
 
         Wait(1000)
