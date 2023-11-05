@@ -1,27 +1,61 @@
+if Config.CircleMap then
+    CreateThread(function()
+        DisplayRadar(false)
+        RequestStreamedTextureDict('circlemap', false)
+        repeat Wait(100) until HasStreamedTextureDictLoaded('circlemap')
+        AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
 
-Citizen.CreateThread(function()
-    Wait(500)
-    SetHudComponentPosition(6, 999999.0, 999999.0)
-    SetHudComponentPosition(7, 999999.0, 999999.0)
-    local minimap = RequestScaleformMovie("minimap")
-    SetBigmapActive(true, false)
-    Wait(0)
-    SetBigmapActive(false, false)
+        SetMinimapClipType(1)
+        SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, 0.021, 0.207, 0.32)
+        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
+        SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-    while true do
-        BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
-        ScaleformMovieMethodAddParamInt(3)
-        EndScaleformMovieMethod()
+        Wait(500)
+        SetBigmapActive(true, false)
+        Wait(500)
+        SetBigmapActive(false, false)
 
-        local health = GetEntityHealth(cache.ped) / 2
-        local armour = GetPedArmour(cache.ped)
+        local minimap = RequestScaleformMovie('minimap')
+        repeat Wait(100) until HasScaleformMovieLoaded(minimap)
 
-        SendNUIMessage({
-            type = "show",
-            health = health,
-            armor = armour
-        })
+        DisplayRadar(true)
+        while true do
+            BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
+            ScaleformMovieMethodAddParamInt(3)
+            EndScaleformMovieMethod()
 
-        Wait(1000)
-    end
-end)
+            local health = GetEntityHealth(cache.ped) / 2
+            local armour = GetPedArmour(cache.ped)
+
+            SendNUIMessage({
+                type = "show",
+                health = health,
+                armor = armour
+            })
+            Wait(200)
+        end
+    end)
+else
+    CreateThread(function()
+        Wait(500)
+        SetBigmapActive(true, false)
+        Wait(500)
+        SetBigmapActive(false, false)
+
+        while true do
+            BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
+            ScaleformMovieMethodAddParamInt(3)
+            EndScaleformMovieMethod()
+
+            local health = GetEntityHealth(cache.ped) / 2
+            local armour = GetPedArmour(cache.ped)
+
+            SendNUIMessage({
+                type = "show",
+                health = health,
+                armor = armour
+            })
+            Wait(200)
+        end
+    end)
+end
