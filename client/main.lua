@@ -1,5 +1,17 @@
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
+    loadScript()
+end)
+
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+    loadScript()
+end)
+
+function loadScript()
     if Config.CircleMap then
         CreateThread(function()
             DisplayRadar(false)
@@ -61,4 +73,4 @@ AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
             end
         end)
     end
-end)
+end
