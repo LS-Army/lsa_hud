@@ -1,5 +1,6 @@
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
+    Wait(1000)
     loadScript()
 end)
 
@@ -8,6 +9,7 @@ AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
     end
+    Wait(1000)
     loadScript()
 end)
 
@@ -28,6 +30,7 @@ function loadScript()
             SetBigmapActive(true, false)
             Wait(500)
             SetBigmapActive(false, false)
+            SetBlipAlpha(GetNorthRadarBlip(), 0)
 
             local minimap = RequestScaleformMovie('minimap')
             repeat Wait(100) until HasScaleformMovieLoaded(minimap)
@@ -37,7 +40,7 @@ function loadScript()
                 BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
                 ScaleformMovieMethodAddParamInt(3)
                 EndScaleformMovieMethod()
-
+                SetRadarZoom(1100)
                 local health = GetEntityHealth(cache.ped) / 2
                 local armour = GetPedArmour(cache.ped)
 
