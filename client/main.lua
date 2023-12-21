@@ -1,8 +1,25 @@
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
-    Wait(1000)
-    loadScript()
-end)
+if Config.Core == 'esx' then
+    RegisterNetEvent('esx:playerLoaded')
+    AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
+        Wait(1000)
+        loadScript()
+    end)
+elseif Config.Core == 'qbcore' then
+    RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+        Wait(1000)
+        loadScript()
+    end)
+elseif Config.Core == 'standalone' then
+    RegisterNetEvent('onClientMapStart', function()
+        if not NetworkIsPlayerActive(PlayerId()) then return end
+
+        while not HasCollisionLoadedAroundEntity(cache.ped) do
+            Wait(10)
+        end
+        Wait(1000)
+        loadScript()
+    end)
+end
 
 
 AddEventHandler('onResourceStart', function(resourceName)

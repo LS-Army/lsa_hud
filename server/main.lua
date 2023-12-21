@@ -1,24 +1,21 @@
-lib.versionCheck('LS-Army/lsa_hud')
-
 CreateThread(function()
-    if Config.SaveArmour then
+    if Config.SaveArmour and Config.Core == 'esx' then
         lib.cron.new("*/1 * * * *", cronTask, { debug = true })
-    else
-        print('Armour save not enabled in config')
     end
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(id, player, isNew)
-    local data = MySQL.Sync.fetchScalar(
-        "SELECT status FROM users WHERE identifier = ?",
-        { player.getIdentifier() }
-    )
-    local jsonData = data and json.decode(data)
+if Config.Core == 'esx' then
+    RegisterNetEvent('esx:playerLoaded')
+    AddEventHandler('esx:playerLoaded', function(id, player, isNew)
+        local data = MySQL.Sync.fetchScalar(
+            "SELECT status FROM users WHERE identifier = ?",
+            { player.getIdentifier() }
+        )
+        local jsonData = data and json.decode(data)
 
-    SetPedArmour(GetPlayerPed(id), jsonData.armour)
-end)
-
+        SetPedArmour(GetPlayerPed(id), jsonData.armour)
+    end)
+end
 
 function cronTask(task, date)
     print("Armor successfully saved")
